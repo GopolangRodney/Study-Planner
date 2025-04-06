@@ -1,0 +1,133 @@
+{% block content %}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<div class="profile-container">
+    <div class="main-content">
+        <h2>Update Your Profile</h2>
+
+        <!-- Profile Update Form -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="update-btn">Update Profile</button>
+        </form>
+    </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>Dashboard</h3>
+        </div>
+        <a href="#" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Overview</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-tasks"></i> Tasks</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-chart-line"></i> Reports</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-cogs"></i> Settings</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/60" alt="User Avatar" class="avatar">
+                <h2>Welcome, {{ user.username }}!</h2>
+            </div>
+            <a href="{% url 'logout' %}" class="logout">Logout</a>
+        </header>
+
+        <div class="profile-section">
+            <h3>Your Profile</h3>
+            <form method="POST" action="{% url 'update_profile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" value="{{ user.username }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{ user.email }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="profile_pic">Profile Picture</label>
+                    <input type="file" id="profile_pic" name="profile_pic">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password">
+                    <small>Leave blank to keep your current password.</small>
+                </div>
+
+                <button type="submit" class="update-btn">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<Style>
+    /* Profile Page Styles */
+.profile-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.profile-section {
+    margin-left: 260px;
+    padding: 40px;
+    background-color: #fff;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+.profile-section h3 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #34495e;
+}
+
+.profile-section .form-group {
+    margin-bottom: 20px;
+}
+
+.profile-section .form-group label {
+    font-size: 16px;
+    color: #34495e;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.profile-section .form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.profile-section .update-btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.profile-section .update-btn:hover {
+    background-color: #218c53;
+}
+
+
+</Style>

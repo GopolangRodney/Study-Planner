@@ -1,0 +1,220 @@
+
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <meta charset="UTF-8">   
+        
+<div class="page-container">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Settings</h2>
+        <a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="{% url 'dashboard' %}"><i class="fas fa-tasks"></i> My Tasks</a>
+        <a href="{% url 'calendar' %}"><i class="fas fa-calendar-alt"></i> Calendar</a>
+        <a href="{% url 'motivational_quotes' %}"><i class="fas fa-lightbulb"></i> Motivational Quotes</a>
+        <a href="{% url 'settings' %}"><i class="fas fa-cog"></i> Settings</a>
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </form>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content-area">
+        <div class="settings-container">
+            <div class="settings-header">
+                <h2>Settings ⚙️</h2>
+                <p class="settings-description">Customize your experience, change your password, and manage your preferences.</p>
+            </div>
+            <div class="settings-options">
+                <div class="settings-option">
+                    <div class="icon-container">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <div class="option-content">
+                        <h3>Profile Settings</h3>
+                        <p>Manage your personal details, update your profile picture, and more.</p>
+                        <a href="#" class="option-link">Edit Profile</a>
+                    </div>
+                </div>
+                <div class="settings-option">
+                    <div class="icon-container">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="option-content">
+                        <h3>Change Password</h3>
+                        <p>Secure your account by changing your password regularly.</p>
+                        <a href="#" class="option-link">Change Password</a>
+                    </div>
+                </div>
+                <div class="settings-option">
+                    <div class="icon-container">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="option-content">
+                        <h3>Notification Settings</h3>
+                        <p>Customize your notification preferences for a better experience.</p>
+                        <a href="#" class="option-link">Manage Notifications</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Page Layout (flexbox) */
+    .page-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    /* Sidebar styles */
+    .sidebar {
+            width: 220px;
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            margin: 15px 0;
+            font-size: 16px;
+        }
+
+    .logout-btn {
+        background-color: #db0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            margin-top: 100px;
+    }
+
+    .logout-btn:hover {
+        background: #c0392b;
+    }
+
+    /* Content area styles */
+    .content-area {
+        margin-left: 200px; /* Offset from the sidebar */
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto; /* Allow scrolling if content overflows */
+    }
+
+    /* Main container for the settings page */
+   /* Content area styles */
+   .content-area {
+       
+        
+        flex-grow: 1;
+        background: #f5f7fa;
+    }
+
+    /* Main container for the settings page */
+    .settings-container {
+        padding: 30px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        max-width: 700px;  /* Reduced width */
+        margin: 40px auto;  /* Reduced margin */
+    }
+
+    .settings-header {
+        text-align: center;
+        margin-bottom: 30px;  /* Reduced space */
+    }
+
+    .settings-header h2 {
+        font-size: 20px;  /* Reduced font size */
+        color: #34495e;
+        font-weight: 600;
+    }
+
+    .settings-description {
+        font-size: 14px;  /* Reduced font size */
+        color: #7f8c8d;
+        margin-top: 5px;
+    }
+
+    .settings-options {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;  
+    }
+
+    .settings-option {
+        display: flex;
+        align-items: center;
+        background: #ffffff;
+        padding: 20px;  
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    .settings-option:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        transform: translateY(-4px);
+    }
+
+    .icon-container {
+        background-color: #3498db;
+        color: white;
+        width: 40px;  /* Reduced icon size */
+        height: 40px;  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-right: 15px;  /* Reduced margin */
+        font-size: 20px;  /* Reduced icon font size */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .option-content h3 {
+        font-size: 20px;  /* Reduced font size */
+        margin-bottom: 10px;  /* Reduced space */
+        color: #2c3e50;
+        font-weight: 500;
+    }
+
+    .option-content p {
+        font-size: 14px;  /* Reduced font size */
+        color: #7f8c8d;
+        margin-bottom: 10px;  /* Reduced margin */
+        line-height: 1.6;
+    }
+
+    .option-link {
+        font-size: 14px;  /* Reduced font size */
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+    }
+
+    .option-link:hover {
+        color: #2980b9;
+        text-decoration: underline;
+    }
+</style>
+
+{% endblock %}

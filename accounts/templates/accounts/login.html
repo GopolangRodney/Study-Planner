@@ -1,0 +1,25 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<h1>Study Planner</h1>
+<h2>Login</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+</form>
+<a href="{% url 'register' %}">Don't have an account? Register</a>
+
+<style>
+    h1 {
+        font-size: 36px;
+        font-weight: bold;
+        text-align: center;
+        color: #2c3e50; /* Dark color for a professional look */
+        margin-bottom: 30px;
+        text-transform: uppercase; /* Make the title stand out */
+        letter-spacing: 2px; /* Slight letter spacing for a polished effect */
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,265 @@
+{% block content %}
+<div style="background-image: url('https://img.freepik.com/premium-photo/sunflowers-golden-afternoon_944420-113594.jpg?w=996'); background-size: cover; background-position: center;">
+    <div style="background-image: url('https://img.freepik.com/premium-photo/sunflowers-golden-afternoon_944420-113594.jpg?w=996'); background-size: cover; background-position: center;">
+    <div class="dashboard-container">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <meta charset="UTF-8">   
+    <!-- Sidebar -->
+    <div class="sidebar">
+       
+            <h2>Motivational Quotes</h2>
+       
+            
+            <a href="{% url 'dashboard' %}"><i class="fas fa-home" ></i> Dashboard</a>
+            <a href="{% url 'dashboard' %}"><i class="fas fa-tasks"></i> My Tasks</a>
+            <a href="{% url 'calendar' %}"><i class="fas fa-calendar-alt"></i> Calendar</a>
+            <a href="{% url 'motivational_quotes' %}"><i class="fas fa-lightbulb"></i> Motivational Quotes</a>
+            <a href="{% url 'settings' %}"><i class="fas fa-cog"></i> Settings</a>
+            <form action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="add-task-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </form>
+            
+    </div>
+
+    <!-- Main content with background image -->
+    <div class="main-content">
+        <div>
+            <div class="motivational-container">
+                <h2 class="motivational-header">🌟 Daily Motivation</h2>
+
+                <!-- Quote Slider Container -->
+                <div class="quote-slider">
+                    <!-- Display the current quote -->
+                    <div class="quote-slide">
+                        <p class="quote-text">
+                            "{{ quote.text }}"
+                        </p>
+                        <p class="quote-author">
+                            — {{ quote.author }}
+                        </p>
+                        <br/>
+                        
+                        <br/>
+
+                        <div class="quote-navigation">
+                            <a href="?index={{ current_index|add:'-1' }}" class="nav-btn prev-btn" {% if current_index == 0 %}style="pointer-events: none; opacity: 0.5;"{% endif %}>Previous</a>
+                            <a href="?index={{ current_index|add:'1' }}" class="nav-btn next-btn" {% if current_index == quotes|length|add:'-1' %}style="pointer-events: none; opacity: 0.5;"{% endif %}>Next</a>
+                        </div>
+                        <p style="font-size: 0.80rem; font-weight: 600; color: #000000;">
+                            🔄 These motivational quotes are randomly picked using an external API.
+                        </p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    
+    .dashboard-container {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    
+
+ 
+    .main-content {
+        margin-left: 250px; 
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto; 
+    }
+
+    .motivational-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+        border-radius: 15px;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(15px); 
+        -webkit-backdrop-filter: blur(15px);
+        height: 85vh;
+        max-width: 80%; 
+        min-width: 80%;
+        width: 60%;
+        margin-top: 20px;
+       
+    }
+    body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: #f4f6f9;
+        }
+
+    .motivational-header {
+        font-size: 2.5rem;
+        color: #ffffff;
+        font-weight: 500;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+   
+    .quote-slider {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+
+    .quote-slide {
+        background: #f8f8f8;
+        padding: 3rem;
+        
+        border-radius: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .quote-text {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 10px;
+        line-height: 1.5;
+    }
+
+    .quote-author {
+        font-size: 1.2rem;
+        font-style: italic;
+        color: #777;
+    }
+
+    .quote-navigation {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .nav-btn {
+        text-decoration: none;
+        padding: 5px 20px;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 5px;
+        transition: background-color 0.2s ease;
+        cursor: pointer;
+        color: #000000;
+        text-transform: uppercase;
+    }
+
+    .prev-btn {
+        background-color: #3498db;
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: bold;
+    }
+
+    .next-btn {
+        background-color: #2ecc71;
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            border: none;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            display: inline-block;
+            margin-left: 100px;
+    }
+
+    .nav-btn:hover {
+        background-color: #555;
+        transform: scale(1.05);
+    }
+
+    .nav-btn[style="pointer-events: none"]:hover {
+        transform: none;
+        background-color: #ccc;
+    }
+
+    @media screen and (max-width: 600px) {
+        .dashboard-container {
+            flex-direction: column;
+        }
+
+        .main-content {
+            margin-left: 0;
+        }
+
+        .motivational-container {
+            width: 70%;
+            height: auto;
+        }
+    }
+
+    .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 220px;
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            margin: 15px 0;
+            font-size: 16px;
+        }
+
+    .logout-form {
+        margin-top: 20px;
+    }
+
+    .add-task-btn {
+            background-color: #db0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            margin-top: 100px;
+        }
+
+
+    .logout-btn:hover {
+        background-color: #c0392b;
+    }
+
+</style>
+{% endblock %}
